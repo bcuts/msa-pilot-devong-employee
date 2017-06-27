@@ -3,10 +3,17 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
 	router := NewRouter()
 
-	log.Fatal(http.ListenAndServe(":8080", router))
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		log.Fatal("$PORT must be set")
+	}
+
+	log.Fatal(http.ListenAndServe(":" + port, router))
 }
