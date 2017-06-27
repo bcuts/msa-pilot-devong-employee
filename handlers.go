@@ -89,13 +89,14 @@ func updateEmployee(w http.ResponseWriter, r *http.Request) {
 
 	if error := json.Unmarshal(body, &employee); error != nil {
 		w.Header().Set("Content-type", "application/json;charset=UTF-8")
-		w.WriteHeader(422) // unprocessable entity
+		w.WriteHeader(http.StatusUnprocessableEntity) // unprocessable entity
 		if error := json.NewEncoder(w).Encode(error); error != nil {
 			panic(error)
 		}
 	}
 
-	t := RepoUpdateEmployee(id , employee)
+	employee.ID = id
+	t := RepoUpdateEmployee(employee)
 	w.Header().Set("Content-type", "application/json;charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 	if err := json.NewEncoder(w).Encode(t); err != nil {

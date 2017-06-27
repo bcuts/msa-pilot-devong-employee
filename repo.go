@@ -45,17 +45,12 @@ func RepoDestroyEmployee(id int) error {
 	return fmt.Errorf("Could not find Employee with id of %d to delete", id)
 }
 
-func RepoUpdateEmployee(id int, employee Employee) interface{} {
-	var newEmploy Employee
+func RepoUpdateEmployee(employee Employee) interface{} {
 	for i, t := range employees {
-		if t.ID == id {
-			t.BranchId = employee.BranchId
-			t.FirstName = employee.FirstName
-			t.LastName = employee.LastName
-
-			employees[i] = t
-			newEmploy = t
+		if t.ID == employee.ID {
+			employees[i] = employee
+			return employee
 		}
 	}
-	return newEmploy
+	return Employee{}
 }
