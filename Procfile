@@ -1,1 +1,1 @@
-web: run ./*.go
+web: go run ./*.go
