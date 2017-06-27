@@ -1,1 +1,1 @@
-web: go run ./*.go
+web: act-msa-pilot-devong-employee
