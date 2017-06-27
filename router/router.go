@@ -1,6 +1,9 @@
-package main
+package router
 
-import "github.com/gorilla/mux"
+import (
+	"github.com/gorilla/mux"
+	"act-msa-pilot-devong-employee/middle"
+)
 
 func NewRouter() *mux.Router {
 
@@ -9,7 +12,7 @@ func NewRouter() *mux.Router {
 		router.Methods(route.Method).
 			Path(route.Pattern).
 			Name(route.Name).
-			Handler(Logger(route.HandlerFunc, route.Name))
+			Handler(middle.Logger(route.HandlerFunc, route.Name))
 	}
 	return router
 }

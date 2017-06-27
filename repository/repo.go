@@ -1,38 +1,39 @@
-package main
+package repository
 
 import (
 	"fmt"
+	"act-msa-pilot-devong-employee/model"
 )
 
 var currentId int
 
-var employees Employees
+var employees model.Employees
 
 // Give us some seed data
 func init() {
-	RepoCreateEmployee(Employee{FirstName: "Write presentation"})
-	RepoCreateEmployee(Employee{FirstName: "Host meetup"})
+	RepoCreateEmployee(model.Employee{FirstName: "Write presentation"})
+	RepoCreateEmployee(model.Employee{FirstName: "Host meetup"})
 }
 
-func RepoFindEmployee(id int) Employee {
+func RepoFindEmployee(id int) model.Employee {
 	for _, t := range employees {
 		if t.ID == id {
 			return t
 		}
 	}
 	// return empty Employee if not found
-	return Employee{}
+	return model.Employee{}
 }
 
 func RepoFindEmployees() interface{} {
 	return employees
 }
 
-func RepoCreateEmployee(t Employee) Employee {
+func RepoCreateEmployee(employee model.Employee) model.Employee {
 	currentId += 1
-	t.ID = currentId
-	employees = append(employees, t)
-	return t
+	employee.ID = currentId
+	employees = append(employees, employee)
+	return employee
 }
 
 func RepoDestroyEmployee(id int) error {
@@ -45,12 +46,12 @@ func RepoDestroyEmployee(id int) error {
 	return fmt.Errorf("Could not find Employee with id of %d to delete", id)
 }
 
-func RepoUpdateEmployee(employee Employee) interface{} {
+func RepoUpdateEmployee(employee model.Employee) interface{} {
 	for i, t := range employees {
 		if t.ID == employee.ID {
 			employees[i] = employee
 			return employee
 		}
 	}
-	return Employee{}
+	return model.Employee{}
 }

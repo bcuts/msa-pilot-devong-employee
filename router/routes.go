@@ -1,7 +1,8 @@
-package main
+package router
 
 import (
 	"net/http"
+	"act-msa-pilot-devong-employee/handler"
 )
 
 type Route struct {
@@ -18,37 +19,36 @@ var routes = Routes{
 		"Index",
 		"GET",
 		"/",
-		Index,
+		handler.Index,
 	},
-
 	Route{
 		"EmployeeList",
 		"GET",
 		"/employees",
-		getEmployees,
+		handler.GetEmployees,
 	},
 	Route{
 		"ShowEmployee",
 		"GET",
 		"/employees/{id}",
-		getEmployee,
+		handler.GetEmployee,
 	},
 	Route{
 		"EmployCreate",
 		"POST",
 		"/employees",
-		createEmployee,
+		handler.CreateEmployee,
 	},
 	Route{
 		"UpdateEmployee",
 		"PUT",
 		"/employees/{id}",
-		updateEmployee,
+		handler.UpdateEmployee,
 	},
 	Route{
 		"DeleteEmployee",
 		"DELETE",
 		"/employees/{id}",
-		deleteEmployee,
+		handler.DeleteEmployee,
 	},
 }

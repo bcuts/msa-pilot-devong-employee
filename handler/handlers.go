@@ -1,4 +1,4 @@
-package main
+package handler
 
 import (
 	"fmt"
@@ -9,14 +9,16 @@ import (
 	"io/ioutil"
 	"io"
 	"strconv"
+	"act-msa-pilot-devong-employee/repository"
+	"act-msa-pilot-devong-employee/model"
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
 }
 
-func getEmployees(w http.ResponseWriter, r *http.Request) {
-	employees := RepoFindEmployees()
+func GetEmployees(w http.ResponseWriter, r *http.Request) {
+	employees := repository.RepoFindEmployees()
 
 	w.Header().Set("Content-type", "application/json;charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
@@ -26,11 +28,11 @@ func getEmployees(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func getEmployee(w http.ResponseWriter, r *http.Request) {
+func GetEmployee(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, _ := strconv.Atoi(vars["id"])
 
-	employee := RepoFindEmployee(id)
+	employee := repository.RepoFindEmployee(id)
 
 	w.Header().Set("Content-type", "application/json;charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
@@ -40,8 +42,8 @@ func getEmployee(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func createEmployee(w http.ResponseWriter, r *http.Request) {
-	var employee Employee
+func CreateEmployee(w http.ResponseWriter, r *http.Request) {
+	var employee model.Employee
 	body, error := ioutil.ReadAll(io.LimitReader(r.Body, 121));
 
 	if error != nil {
@@ -60,7 +62,7 @@ func createEmployee(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	t := RepoCreateEmployee(employee)
+	t := repository.RepoCreateEmployee(employee)
 	w.Header().Set("Content-type", "application/json;charset=UTF-8")
 	w.WriteHeader(http.StatusCreated)
 	if err := json.NewEncoder(w).Encode(t); err != nil {
@@ -68,7 +70,7 @@ func createEmployee(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func updateEmployee(w http.ResponseWriter, r *http.Request) {
+func UpdateEmployee(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, errorParam := strconv.Atoi(vars["id"])
 
@@ -76,7 +78,7 @@ func updateEmployee(w http.ResponseWriter, r *http.Request) {
 		panic(errorParam)
 	}
 
-	var employee Employee
+	var employee model.Employee
 	body, errorBody := ioutil.ReadAll(io.LimitReader(r.Body, 121))
 
 	if errorBody != nil {
@@ -96,7 +98,7 @@ func updateEmployee(w http.ResponseWriter, r *http.Request) {
 	}
 
 	employee.ID = id
-	t := RepoUpdateEmployee(employee)
+	t := repository.RepoUpdateEmployee(employee)
 	w.Header().Set("Content-type", "application/json;charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 	if err := json.NewEncoder(w).Encode(t); err != nil {
@@ -104,11 +106,11 @@ func updateEmployee(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func deleteEmployee(w http.ResponseWriter, r *http.Request) {
+func DeleteEmployee(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, _ := strconv.Atoi(vars["id"])
 
-	if error := RepoDestroyEmployee(id); error != nil {
+	if error := repository.RepoDestroyEmployee(id); error != nil {
 		w.Header().Set("Content-type", "application/json;charset=UTF-8")
 		w.WriteHeader(422) // unprocessable entity --> 뭐라고 정의해야하나?
 		panic(error)

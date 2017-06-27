@@ -4,15 +4,16 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"act-msa-pilot-devong-employee/router"
 )
 
 func main() {
-	router := NewRouter()
+	router := router.NewRouter()
 
 	port := os.Getenv("PORT")
 
 	if port == "" {
-		log.Fatal("$PORT must be set")
+		port = "8080"
 	}
 
 	log.Fatal(http.ListenAndServe(":" + port, router))
