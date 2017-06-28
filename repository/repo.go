@@ -11,8 +11,8 @@ var employees model.Employees
 
 // Give us some seed data
 func init() {
-	RepoCreateEmployee(model.Employee{FirstName: "Write presentation"})
-	RepoCreateEmployee(model.Employee{FirstName: "Host meetup"})
+	RepoCreateEmployee(model.Employee{FirstName: "JIMMY", LastName:"LEE"})
+	RepoCreateEmployee(model.Employee{FirstName: "SCOTT", LastName:"IM"})
 }
 
 func RepoFindEmployee(id int) model.Employee {

@@ -6,6 +6,9 @@ import (
 	"os"
 	"msa-pilot-devong-employee/router"
 )
+func init(){
+	log.Println("fjaewiojfoeiwjojfojoi")
+}
 
 func main() {
 	router := router.NewRouter()
