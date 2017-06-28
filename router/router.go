@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/gorilla/mux"
-	"act-msa-pilot-devong-employee/middle"
+	"msa-pilot-devong-employee/middle"
 )
 
 func NewRouter() *mux.Router {

@@ -2,7 +2,7 @@ package repository
 
 import (
 	"fmt"
-	"act-msa-pilot-devong-employee/model"
+	"msa-pilot-devong-employee/model"
 )
 
 var currentId int

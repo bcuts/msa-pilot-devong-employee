@@ -9,8 +9,8 @@ import (
 	"io/ioutil"
 	"io"
 	"strconv"
-	"act-msa-pilot-devong-employee/repository"
-	"act-msa-pilot-devong-employee/model"
+	"msa-pilot-devong-employee/repository"
+	"msa-pilot-devong-employee/model"
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {

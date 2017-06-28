@@ -1,1 +1,1 @@
-web: act-msa-pilot-devong-employee
+web: msa-pilot-devong-employee
